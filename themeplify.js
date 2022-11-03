@@ -222,7 +222,14 @@ module.exports = function (callback) {
 
 	return yargs
 		.scriptName("themeplify")
-		.command("build", "build project files", () => {}, composedCallback)
+		.command("build", "build project files", (yargs) => {
+			return yargs
+				.option("nominify", {
+					describe: "Deploy without minification assets files",
+					type: "boolean",
+					default: false
+				})
+		}, composedCallback)
 		.command("zip", "create production ready archive", () => {}, composedCallback)
 		.command(
 			"watch",
@@ -238,6 +245,11 @@ module.exports = function (callback) {
 					.option("serverless", {
 						describe: "Will run this command without dev server",
 						type: 'boolean',
+						default: false
+					})
+					.option("nominify", {
+						describe: "Deploy without minification assets files",
+						type: "boolean",
 						default: false
 					});
 			},
@@ -262,6 +274,11 @@ module.exports = function (callback) {
 					.option("serverless", {
 						describe: "Will run this command without dev server",
 						default: false
+					})
+					.option("nominify", {
+						describe: "Deploy without minification assets files",
+						type: "boolean",
+						default: false
 					});
 			},
 			composedCallback
@@ -280,6 +297,11 @@ module.exports = function (callback) {
 						describe: 'Files to download from Shopify',
 						type: 'array',
 						default: []
+					})
+					.option("nominify", {
+						describe: "Deploy without minification assets files",
+						type: "boolean",
+						default: false
 					});
 			},
 			composedCallback

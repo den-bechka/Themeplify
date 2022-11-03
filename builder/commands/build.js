@@ -10,18 +10,23 @@ const minifyJs          = require("../tasks/js/minify");
 const clearThemekitWorkingDirectory = require("../tasks/others/clearThemekitWorkingDirectory");
 
 const { gulp } = themeplify.packages;
+const { nominify } = themeplify.options.themekit;
+
+const stylesSeries = [
+	buildScss,
+	!nominify && buildScssMinify
+];
+
+const scriptsSeries = [
+	buildJs,
+	!nominify && minifyJs
+];
 
 const build = gulp.series([
     clearThemekitWorkingDirectory,
     gulp.parallel(
-        gulp.series(
-			buildScss,
-			buildScssMinify,
-		),
-        gulp.series(
-            buildJs,
-            minifyJs
-        ),
+        gulp.series(stylesSeries),
+        gulp.series(scriptsSeries),
         buildTranslations,
         buildSettings,
         buildCssVarianblesFromSettings

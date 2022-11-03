@@ -1,6 +1,7 @@
 const {
 	webpack,
 } = themeplify.packages;
+const { nominify }  = themeplify.options.themekit;
 const { entries } 	= themeplify.helpers;
 const webpackConfig = themeplify.options.webpack;
 const files 		= themeplify.files;
@@ -16,7 +17,7 @@ module.exports = (jsFiles = files.js, options = {}) => {
 		const compiler = webpack({
 			...webpackConfig,
 			entry: entryFiles,
-			mode: "production",
+			mode: nominify ? "development" : "production",
 		});
 
 		try {

@@ -21,6 +21,7 @@ const options = {
 	store: argv.store,
 	noIgnore: argv.noignore || false,
 	timeout: argv.timeout || "120s",
+	nominify: argv.nominify || false,
 };
 
 try {
